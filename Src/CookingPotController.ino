@@ -8,6 +8,11 @@
 #include "productionController.h"
 #include <SD.h>
 
+#include "RTClib.h"
+
+RTC_DS1307 rtc;
+char daysOfTheWeek[7][12] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+
 
 //defualt scale factor--------------------
 #define scaleCalibrationFactor_ -25500
@@ -82,7 +87,11 @@ void setup()
     configController_.loadConfigEEPROM();
     delay(1000);
 
-
+    if (! rtc.begin()) {
+    Serial.println("Couldn't find RTC");
+    Serial.flush();
+    
+  }
     
     
 
